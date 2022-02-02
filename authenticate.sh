@@ -3,8 +3,8 @@
 #Execute this script to Authenticate with CSC Ultra DNS
 #Requires password in local file .password in the same directory as script
 
-export CUSER=dnsauto
-export CPASS=$(cat .password)
+export CUSER=$(cat .csc-userid)
+export CPASS=$(cat .csc-password)
 
 
 
