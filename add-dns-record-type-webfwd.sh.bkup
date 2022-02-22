@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#Execute this script to add a DNS record
+#The script requires 3 arguments. Zone name and FQDN of record, IP address, in that order.
+
+export CTOKEN=$(cat .token-access)
+export DOMAIN=$1
+#export RECORD=$2.$1
+export SOURCE=$2
+export TARGET=$3
+
+
+#Generated From Postman
+curl -s --location --request \
+	POST 'https://api.ultradns.com/zones/'$DOMAIN'/webforwards/' \
+	--header 'Authorization: Bearer '$CTOKEN \
+	--header 'Content-Type: application/json' \
+	--data-raw \
+	'{
+	    "requestTo": "'$SOURCE'",
+	    "defaultRedirectTo": "'$TARGET'",
+	    "defaultForwardType": "HTTP_301_REDIRECT",
+	    "records": [
+	        {
+	            "redirectTo": "c.demo-kb-1.com.in",
+	            "forwardType": "HTTP_301_REDIRECT",
+	            "priority": 1,
+	            "rules": [
+	                {
+	                    "header":"Accept",
+	                    "matchCriteria": "CONTAINS",
+	                    "value": "kb",
+	                    "caseInsensitive": false
+	                }
+	            ]
+	        }
+	    ]
+	}' \
+	| jq -s
+
