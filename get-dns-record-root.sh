@@ -17,5 +17,5 @@ curl -s --location --request \
 	--data-raw '{
 	    "rrtype": "A (1)",
 	    ]
-}' | jq -r
+}' | jq . -r
 

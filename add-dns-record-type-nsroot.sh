@@ -20,5 +20,5 @@ curl -s --location --request \
 	    "rdata": [
 	        "'${VALUE}'"
 	    ]
-}' | jq -s
+}' | jq . -s
 
