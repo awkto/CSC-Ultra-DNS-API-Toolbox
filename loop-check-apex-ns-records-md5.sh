@@ -6,5 +6,6 @@ for domain in $(cat $domainlist);do \
 				| jq -r .rrSets[0].rdata[] \
 				| sort \
 				| md5sum \
-				); \
+				)\
+	" for zone : "$domain
 done

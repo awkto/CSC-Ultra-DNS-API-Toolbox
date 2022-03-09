@@ -3,7 +3,14 @@
 domainlist=$1
 
 for domain in $(cat $domainlist);do \
-	./get-apex-record.sh $domain;
+	echo "APEXALIAS record " \
+	$(
+		./get-apex-record.sh $domain \
+		| egrep "errorCode|totalCount" \
+		| sed 's/"errorCode": 70002,/does not exist/' \
+		| sed 's/"totalCount": 1,/DOES EXIST/' \
+	) \
+	" on domain : "$domain;
 done
 
 
